@@ -5,6 +5,11 @@ function ColorGenerator(){
 
     //element selections
     this.colorElements=document.querySelectorAll(".color");
+        //slider activators
+        this.sliderActivators=document.querySelectorAll(".sliderActivator");
+        //slider close button
+        this.sliderCloseButton=document.querySelectorAll(".slider__close");
+
     //panel buttons
     this.generateButton=document.querySelector("#generate");
 
@@ -53,7 +58,27 @@ console.log(colorGenerator)
 
 //event listeners
 
-colorGenerator.generateButton.addEventListener("click",()=>{
-    colorGenerator.generateColor();
-    console.log("hi")
-})
+    //event for regenerating colors
+    colorGenerator.generateButton.addEventListener("click",()=>{
+        colorGenerator.generateColor();
+        console.log("hi")
+    })
+
+    //event for opening and closing slider 
+    
+    //open and close with slider button 
+    colorGenerator.sliderActivators.forEach((element,index)=>{
+        element.addEventListener("click",()=>{
+            document.querySelectorAll(".slider")[index].classList.toggle("active");
+        })
+    })
+    
+    console.log(colorGenerator.sliderCloseButton)
+    //close with  X button
+    colorGenerator.sliderCloseButton.forEach((element,index)=>{
+        console.log(element)
+        element.addEventListener("click",()=>{
+            document.querySelectorAll(".slider")[index].classList.remove("active");
+            console.log("hi")
+        })
+    })
