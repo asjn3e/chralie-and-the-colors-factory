@@ -21,7 +21,18 @@ function ColorGenerator(){
             element.querySelector("h2").innerText=this.colors[index];
 
         //luminance correction 
-        
+        console.log(chroma(this.colors[index]).luminance())
+        if(chroma(this.colors[index]).luminance() < 0.5){
+                element.querySelector("h2").style.color="white"
+                element.querySelectorAll("button").forEach(icon=>{
+                    icon.style.color="white"
+                })
+         }else{
+            element.querySelector("h2").style.color="#000"
+            element.querySelectorAll("button").forEach(icon=>{
+                icon.style.color="#000"
+            })
+         }
         })
     }
 
