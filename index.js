@@ -38,6 +38,25 @@ function ColorGenerator(){
                 icon.style.color="#000"
             })
          }
+         //setting range inputs background
+         let sliderInputs=element.querySelectorAll("input");
+         const hue=sliderInputs[0];
+         const brightness=sliderInputs[1];
+         const saturation=sliderInputs[2];
+         hue.style.backgroundImage="linear-gradient(to Right,#cc4b4b,#cccc4b,#4bcc4b,#4bcccc,#4b4bcc,#cc4bcc,#cc4b4b)"
+         const brightnessValues={
+             a:chroma(this.colors[index]).set("lab.l","1").hex(),
+             b:this.colors[index],
+             c:chroma(this.colors[index]).set("lab.l","100").hex()
+         }
+         brightness.style.backgroundImage=`linear-gradient(to Right,${brightnessValues.a},${brightnessValues.b},${brightnessValues.c})`
+         const saturationValues={
+            a:chroma(this.colors[index]).set("hsl.s","0").hex(),
+            b:this.colors[index],
+            c:chroma(this.colors[index]).set("hsl.s","100").hex()
+        }
+        saturation.style.backgroundImage=`linear-gradient(to Right,${saturationValues.a},${saturationValues.b},${saturationValues.c})`
+         
         })
     }
 
@@ -61,7 +80,7 @@ console.log(colorGenerator)
     //event for regenerating colors
     colorGenerator.generateButton.addEventListener("click",()=>{
         colorGenerator.generateColor();
-        console.log("hi")
+        
     })
 
     //event for opening and closing slider 
@@ -73,10 +92,9 @@ console.log(colorGenerator)
         })
     })
     
-    console.log(colorGenerator.sliderCloseButton)
+    
     //close with  X button
     colorGenerator.sliderCloseButton.forEach((element,index)=>{
-        console.log(element)
         element.addEventListener("click",()=>{
             document.querySelectorAll(".slider")[index].classList.remove("active");
             console.log("hi")

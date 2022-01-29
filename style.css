@@ -78,11 +78,12 @@ body{
 }
 .slider__title{
     font-size: 1rem;
-    color: rgb(212 212 212);
+    color: rgb(104, 104, 104);
 }
 .slider  input{
     margin: 1rem;
-    -webkit-animation: none;
+    -webkit-appearance: none;
+    border-radius: 1rem;
 }
 
 
