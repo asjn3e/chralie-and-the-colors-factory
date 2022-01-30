@@ -20,51 +20,58 @@ function ColorGenerator(){
     this.generateColor= () =>{
         this.colors=[];
         for(let i =0;i<5;i++){
-            this.colors.push(chroma.random().hex());
+            let color={
+                hex:chroma.random().hex(),
+                hue:null,
+                brightness:null,
+                saturation:null,
+                secondaryHex:null,
+            }
+            this.colors.push(color);
         }
-        
+        console.log(this.colors)
         //add colors to divs
         this.colorElements.forEach((element,index)=>{
         //changing divs bg and luminance 
-        this.changeDivsBGandLuminance(element,index);
+        this.changeDivsBGandLuminance(element,this.colors[index].hex);
         //setting range inputs background
-        this.changeinputsbg(element,index)
+        this.changeinputsbg(element,this.colors[index].hex)
  
         })
 
        
     }
 
-    this.changeinputsbg=(element,index)=>{
+    this.changeinputsbg=(element,hex)=>{
         let sliderInputs=element.querySelectorAll("input");
-         const hue=sliderInputs[0];
-         const brightness=sliderInputs[1];
-         const saturation=sliderInputs[2];
-         hue.style.backgroundImage="linear-gradient(to Right,#cc4b4b,#cccc4b,#4bcc4b,#4bcccc,#4b4bcc,#cc4bcc,#cc4b4b)"
-         const brightnessValues={
-             a:chroma(this.colors[index]).set("lab.l","1").hex(),
-             b:this.colors[index],
-             c:chroma(this.colors[index]).set("lab.l","100").hex()
+        const hue=sliderInputs[0];
+        const brightness=sliderInputs[1];
+        const saturation=sliderInputs[2];
+        hue.style.backgroundImage="linear-gradient(to Right,#cc4b4b,#cccc4b,#4bcc4b,#4bcccc,#4b4bcc,#cc4bcc,#cc4b4b)"
+        const brightnessValues={
+             a:chroma(hex).set("lab.l","1").hex(),
+             b:hex,
+             c:chroma(hex).set("lab.l","100").hex()
          }
-         brightness.style.backgroundImage=`linear-gradient(to Right,${brightnessValues.a},${brightnessValues.b},${brightnessValues.c})`
-         const saturationValues={
-            a:chroma(this.colors[index]).set("hsl.s","0").hex(),
-            b:this.colors[index],
-            c:chroma(this.colors[index]).set("hsl.s","100").hex()
+        brightness.style.backgroundImage=`linear-gradient(to Right,${brightnessValues.a},${brightnessValues.b},${brightnessValues.c})`
+        const saturationValues={
+            a:chroma(hex).set("hsl.s","0").hex(),
+            b:hex,
+            c:chroma(hex).set("hsl.s","100").hex()
         }
         saturation.style.backgroundImage=`linear-gradient(to Right,${saturationValues.a},${saturationValues.b},${saturationValues.c})`
          
-    }
+     }
 
 
-    this.changeDivsBGandLuminance=(element,index)=>{
+    this.changeDivsBGandLuminance=(element,hex)=>{
 
-            element.style.backgroundColor=this.colors[index];
-            element.querySelector("h2").innerText=this.colors[index];
+            element.style.backgroundColor=hex;
+            element.querySelector("h2").innerText=hex;
 
         //luminance correction 
-        console.log(chroma(this.colors[index]).luminance())
-        if(chroma(this.colors[index]).luminance() < 0.5){
+        console.log(chroma(hex).luminance())
+        if(chroma(hex).luminance() < 0.5){
                 element.querySelector("h2").style.color="white"
                 element.querySelectorAll("button").forEach(icon=>{
                     icon.style.color="white"
