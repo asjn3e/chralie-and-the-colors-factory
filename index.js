@@ -15,6 +15,9 @@ function ColorGenerator() {
     //panel buttons
     this.generateButton = document.querySelector("#generate");
 
+    //color texts (h2)
+    this.colorHEX=document.querySelectorAll("h2")
+
 
     //functions
     this.generateColor = () => {
@@ -22,10 +25,6 @@ function ColorGenerator() {
         for (let i = 0; i < 5; i++) {
             let color = {
                 hex: chroma.random().hex(),
-                hue: null,
-                brightness: null,
-                saturation: null,
-                secondaryHex: null,
                 islocked:false
             }
             this.colors.push(color);
@@ -146,7 +145,6 @@ colorGenerator.sliderActivators.forEach((element, index) => {
     })
 })
 
-
 //close with  X button
 colorGenerator.sliderCloseButton.forEach((element, index) => {
     element.addEventListener("click", () => {
@@ -155,9 +153,6 @@ colorGenerator.sliderCloseButton.forEach((element, index) => {
     })
 })
 
-
-console.log(colorGenerator.sliderInputs)
-
 //event for changing colors HSL 
 colorGenerator.sliderInputs.forEach((element, index) => {
     element.addEventListener("input", () => {
@@ -165,6 +160,21 @@ colorGenerator.sliderInputs.forEach((element, index) => {
     })
 })
 
+//event for copping color hex
+colorGenerator.colorHEX.forEach(element =>{
+    element.addEventListener("click",(e)=>{
+        const el=document.createElement("textarea");
+        el.value=element.innerText;
+        el.select();
+        navigator.clipboard.writeText(el.value);
+
+        document.querySelector(".copy-container").classList.add("active")
+        setTimeout(()=>{
+            document.querySelector(".copy-container").classList.remove("active")
+        },2000)
+    })
+})
+//closing copy popup
 
 
 //run app
