@@ -1,7 +1,7 @@
 console.log(chroma.random().hex())
 
 function ColorGenerator() {
-    this.colors = [];
+    this.colors = [{hex:null,islocked:false},{hex:null,islocked:false},{hex:null,islocked:false},{hex:null,islocked:false},{hex:null,islocked:false}];
 
     //element selections
     this.colorElements = document.querySelectorAll(".color");
@@ -18,16 +18,17 @@ function ColorGenerator() {
     //color texts (h2)
     this.colorHEX=document.querySelectorAll("h2")
 
+    //lock buttons
+    this.locks=document.querySelectorAll(".colorLocker")
 
     //functions
     this.generateColor = () => {
-        this.colors = [];
+        
         for (let i = 0; i < 5; i++) {
-            let color = {
-                hex: chroma.random().hex(),
-                islocked:false
+            if(this.colors[i].islocked==true){
+                continue
             }
-            this.colors.push(color);
+            this.colors[i].hex=chroma.random().hex();
         }
 
         //add colors to divs
@@ -74,7 +75,7 @@ function ColorGenerator() {
 
         //luminance correction 
 
-        if (chroma(hex).luminance() < 0.5) {
+        if (chroma(hex).luminance() <= 0.5) {
             element.querySelector("h2").style.color = "white"
             element.querySelectorAll("button").forEach(icon => {
                 icon.style.color = "white"
@@ -121,7 +122,7 @@ function ColorGenerator() {
         }
     }
 
-
+    
 }
 
 
@@ -174,7 +175,21 @@ colorGenerator.colorHEX.forEach(element =>{
         },2000)
     })
 })
-//closing copy popup
+
+//lock and unlock
+colorGenerator.locks.forEach((element,index)=>{
+    element.addEventListener("click",()=>{
+        if(!colorGenerator.colors[index].islocked){
+            colorGenerator.colors[index].islocked=true;
+            element.firstChild.classList.replace("fa-lock-open","fa-lock")
+        }
+        else{
+            colorGenerator.colors[index].islocked=false;
+            element.firstChild.classList.replace("fa-lock","fa-lock-open")
+        }
+        console.log(colorGenerator.colors)
+    })
+})
 
 
 //run app
