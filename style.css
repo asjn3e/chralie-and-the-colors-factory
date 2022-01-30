@@ -7,6 +7,9 @@
 i , path ,svg{
     pointer-events: none;
 }
+button{
+    cursor: pointer;
+}
 body{
     overflow: hidden;
 }
@@ -145,6 +148,16 @@ body{
     border-radius: 1rem;
     transition: transform 1s ease-in;
     position: relative;
+    
+}
+.library-popup{
+    min-width: 40%;
+    min-height: 50vh;
+    max-height: 50vh;
+    justify-content: space-between;
+    align-items: center;
+    overflow-y: scroll;
+    
 }
 .save-popup .close--btn,.library-container .close--btn{
     border-radius: 0rem 10px 0rem 0rem;
@@ -153,8 +166,9 @@ body{
     margin: 2rem;
     font-size: 1.5rem;
 }
-.save-popup h3,.copy-popup h3{
+.save-popup h3,.copy-popup h3,.library-container h3{
     margin-bottom:2rem;
+    margin-top: 3rem;
     color: rgb(51 51 51);
     font-size: 2rem;
 }
@@ -176,7 +190,44 @@ body{
     border-radius: 10px;
     font-size: 1rem;
 }
-.copy-container.active,.save-container.active{
+.copy-container.active,.save-container.active,.library-container.active{
     transform: translateY(0);
     pointer-events: all;
+}
+
+ .library-palette{
+    display: flex;
+    width: 85%;
+    align-items: center;
+    margin: 1.5rem;
+    height: 5rem;
+}
+.library-name{
+    flex-grow: 1;
+    font-size: 2rem;
+    font-weight: 700;
+    color: rgb(51 51 51);
+
+}
+
+.library-color{
+    width: 5%;
+    background-color: #000fff;
+    height: 100%;
+}
+.library-select{
+    background-color: rgb(41 41 41);
+    font-size: 1.2rem;
+    color: white;
+    padding: 1.2rem;
+    text-align: center;
+    vertical-align: center;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+} 
+.library-select:hover{
+    background-color: rgb(95, 95, 95);
 }

@@ -33,7 +33,17 @@ function ColorGenerator() {
     //save palette button
     this.savePalette=document.querySelector("#savePalette");
 
-    //open 
+    //open library button
+    this.libraryButton=document.querySelector("#library");
+
+    //library container
+    this.libraryContainer=document.querySelector(".library-container")
+
+    //close library btn
+    this.closeLibraryButton=document.querySelector(".close-libarary");
+
+    this.libraryPopup=document.querySelector(".library-popup")
+
     //functions
     this.generateColor = () => {
         
@@ -84,7 +94,6 @@ function ColorGenerator() {
 
         element.style.backgroundColor = hex;
         element.querySelector("h2").innerText = hex;
-
         //luminance correction 
 
         if (chroma(hex).luminance() <= 0.5) {
@@ -134,12 +143,46 @@ function ColorGenerator() {
         }
     }
 
+    this.bundleLibrary=()=>{
+        this.libraryPopup.querySelectorAll("div").forEach(element=>{
+            element.remove();
+        })
+        savedColors.forEach((element,index)=>{
+            let div=document.createElement("div");
+            div.classList.add("library-palette");
+            let htmlElement=`
+                <p class="library-name">${element.name}</p>
+                <div class="library-color" style="background-color:${element.colors[0].hex};"></div>
+                <div class="library-color" style="background-color:${element.colors[1].hex};"></div>
+                <div class="library-color" style="background-color:${element.colors[2].hex};"></div>
+                <div class="library-color" style="background-color:${element.colors[3].hex};"></div>
+                <div class="library-color" style="background-color:${element.colors[4].hex};"></div>
+                <div class="library-select select-${index}">Select</div>
+            `
+        
+        div.innerHTML=htmlElement
+        this.libraryPopup.appendChild(div);
+        document.querySelector(`.select-${index}`).addEventListener("click",()=>{
+            this.colors=savedColors[index].colors
+
+            //add colors to divs
+            this.colorElements.forEach((element, index) => {
+                //changing divs bg and luminance 
+                this.changeDivsBGandLuminance(element, this.colors[index].hex);
+                //setting range inputs background
+                this.changeinputsbg(element, this.colors[index].hex)
+
+        })
+
+        })
+        console.log(this.libraryPopup)
+        })
+    }
     
 }
 
 
 const colorGenerator = new ColorGenerator();
-
 
 //event listeners
 
@@ -222,6 +265,19 @@ colorGenerator.savePalette.addEventListener("click",()=>{
     localStorage.setItem("colors",JSON.stringify(savedColors));
     colorGenerator.saveContainer.classList.remove("active")
 })
+
+//open library 
+colorGenerator.libraryButton.addEventListener("click",()=>{
+    colorGenerator.libraryContainer.classList.add("active")
+    colorGenerator.bundleLibrary();
+})
+
+//close library continer
+colorGenerator.closeLibraryButton.addEventListener("click",()=>{
+    console.log("hi")
+    colorGenerator.libraryContainer.classList.remove("active")
+})
+
 
 //run app
 colorGenerator.generateColor();
