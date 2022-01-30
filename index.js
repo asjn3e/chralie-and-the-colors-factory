@@ -1,5 +1,9 @@
 const savedColors=JSON.parse(localStorage.getItem("colors"));
 
+if(!localStorage.getItem("colors")){
+    savedColors=[]
+}
+
 function ColorGenerator() {
     this.colors = [{hex:null,islocked:false},{hex:null,islocked:false},{hex:null,islocked:false},{hex:null,islocked:false},{hex:null,islocked:false}];
 
@@ -44,6 +48,7 @@ function ColorGenerator() {
 
     this.libraryPopup=document.querySelector(".library-popup")
 
+    this.clearLibrary=document.querySelector("#clearLibrary");
     //functions
     this.generateColor = () => {
         
@@ -53,7 +58,8 @@ function ColorGenerator() {
             }
             this.colors[i].hex=chroma.random().hex();
         }
-
+        console.log(this.colors)
+        
         //add colors to divs
         this.colorElements.forEach((element, index) => {
             //changing divs bg and luminance 
@@ -175,7 +181,6 @@ function ColorGenerator() {
         })
 
         })
-        console.log(this.libraryPopup)
         })
     }
     
@@ -260,8 +265,8 @@ colorGenerator.savePalette.addEventListener("click",()=>{
         name:paletteName,
         colors:colorGenerator.colors,
     }
+    console.log(colorGenerator.colors)
     savedColors.push(newSavingColor);
-
     localStorage.setItem("colors",JSON.stringify(savedColors));
     colorGenerator.saveContainer.classList.remove("active")
 })
@@ -274,10 +279,19 @@ colorGenerator.libraryButton.addEventListener("click",()=>{
 
 //close library continer
 colorGenerator.closeLibraryButton.addEventListener("click",()=>{
-    console.log("hi")
     colorGenerator.libraryContainer.classList.remove("active")
 })
 
+
+//clear library
+colorGenerator.clearLibrary.addEventListener("click",()=>{
+    localStorage.removeItem("colors");
+    savedColors.splice(0,savedColors.length)
+    colorGenerator.libraryPopup.querySelectorAll("div").forEach(element=>{
+        element.remove();
+    })
+    console.log(savedColors)
+})
 
 //run app
 colorGenerator.generateColor();

@@ -154,7 +154,7 @@ body{
     min-width: 40%;
     min-height: 50vh;
     max-height: 50vh;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     overflow-y: scroll;
     
@@ -182,13 +182,14 @@ body{
     border:1px solid rgb(151, 151, 151);
     outline: none;
 }
-.save-popup .popup__button{
+.popup__button{
     background-color: rgb(31 33 63);
     border: none;
     padding: 0.8rem 2rem;
     color: white;
     border-radius: 10px;
     font-size: 1rem;
+    margin-bottom:1rem;
 }
 .copy-container.active,.save-container.active,.library-container.active{
     transform: translateY(0);
