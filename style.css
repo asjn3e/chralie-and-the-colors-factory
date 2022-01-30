@@ -62,7 +62,7 @@ body{
     opacity: 1;
     pointer-events: auto;
 }
-.slider__close {
+.close--btn {
     position: absolute;
     right: 0;
     top: 0;
@@ -119,7 +119,7 @@ body{
 }
 
 
-.copy-container{
+.copy-container,.save-container,.library-container{
     position: absolute;
     top: 0;
     left: 0;
@@ -134,7 +134,7 @@ body{
     transition: .5s transform ease-in;
     pointer-events: none;
 }
-.copy-popup{
+.copy-popup,.save-popup,.library-popup{
     background-color: #fff;
     display: flex;
     flex-direction: column;
@@ -143,11 +143,40 @@ body{
     min-width: 30%;
     min-height: 30%;
     border-radius: 1rem;
-    transition: all 1s ease-in;
+    transition: transform 1s ease-in;
+    position: relative;
+}
+.save-popup .close--btn,.library-container .close--btn{
+    border-radius: 0rem 10px 0rem 0rem;
 }
 .copy-popup h4{
     margin: 2rem;
+    font-size: 1.5rem;
 }
-.copy-container.active{
+.save-popup h3,.copy-popup h3{
+    margin-bottom:2rem;
+    color: rgb(51 51 51);
+    font-size: 2rem;
+}
+.save-popup input{
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    color: rgb(51, 51, 51);
+    height: 20%;
+    width: 40%;
+    border-radius: 5px;
+    border:1px solid rgb(151, 151, 151);
+    outline: none;
+}
+.save-popup .popup__button{
+    background-color: rgb(31 33 63);
+    border: none;
+    padding: 0.8rem 2rem;
+    color: white;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+.copy-container.active,.save-container.active{
     transform: translateY(0);
+    pointer-events: all;
 }

@@ -1,4 +1,4 @@
-console.log(chroma.random().hex())
+const savedColors=JSON.parse(localStorage.getItem("colors"));
 
 function ColorGenerator() {
     this.colors = [{hex:null,islocked:false},{hex:null,islocked:false},{hex:null,islocked:false},{hex:null,islocked:false},{hex:null,islocked:false}];
@@ -19,8 +19,21 @@ function ColorGenerator() {
     this.colorHEX=document.querySelectorAll("h2")
 
     //lock buttons
-    this.locks=document.querySelectorAll(".colorLocker")
+    this.locks=document.querySelectorAll(".colorLocker");
+    
+    //save button
+    this.saveButton=document.querySelector("#save");
 
+    //close saving container button
+
+    this.closeSavingContainer=document.querySelector(".close-save-container")
+    //save container
+    this.saveContainer=document.querySelector(".save-container");
+
+    //save palette button
+    this.savePalette=document.querySelector("#savePalette");
+
+    //open 
     //functions
     this.generateColor = () => {
         
@@ -55,7 +68,6 @@ function ColorGenerator() {
             c: chroma(hex).set("hsl.l", 1).hex()
         }
         brightness.value=chroma(hex).hsl()[2]
-        console.log(chroma(hex).hsl())
         brightness.style.backgroundImage = `linear-gradient(to Right,${brightnessValues.a},${brightnessValues.b},${brightnessValues.c})`
         const saturationValues = {
             a: chroma(hex).set("hsl.s", 0).hex(),
@@ -150,7 +162,6 @@ colorGenerator.sliderActivators.forEach((element, index) => {
 colorGenerator.sliderCloseButton.forEach((element, index) => {
     element.addEventListener("click", () => {
         document.querySelectorAll(".slider")[index].classList.remove("active");
-        console.log("hi")
     })
 })
 
@@ -187,10 +198,30 @@ colorGenerator.locks.forEach((element,index)=>{
             colorGenerator.colors[index].islocked=false;
             element.firstChild.classList.replace("fa-lock","fa-lock-open")
         }
-        console.log(colorGenerator.colors)
     })
 })
 
+//open saving container
+colorGenerator.saveButton.addEventListener("click",()=>{
+    colorGenerator.saveContainer.classList.add("active")
+})
+//close saving container
+colorGenerator.closeSavingContainer.addEventListener("click",()=>{
+    colorGenerator.saveContainer.classList.remove("active")
+})
+
+//save paletter events
+colorGenerator.savePalette.addEventListener("click",()=>{
+    const paletteName=colorGenerator.saveContainer.querySelector("input").value;
+    const newSavingColor={
+        name:paletteName,
+        colors:colorGenerator.colors,
+    }
+    savedColors.push(newSavingColor);
+
+    localStorage.setItem("colors",JSON.stringify(savedColors));
+    colorGenerator.saveContainer.classList.remove("active")
+})
 
 //run app
 colorGenerator.generateColor();
