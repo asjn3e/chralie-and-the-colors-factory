@@ -88,6 +88,39 @@ function ColorGenerator() {
         }
     }
 
+    
+    this.setHSL=(inputNo)=>{
+        set=(colorNo,startInputNo)=>{
+            let colorElement = this.colorElements[colorNo]
+            let color = this.colors[colorNo].hex;
+            
+            let sliderInputs= this.sliderInputs;
+            this.colors[colorNo].hex = 
+            chroma(color)
+            .set('hsl.h', sliderInputs[startInputNo].value)
+            .set('hsl.l', sliderInputs[startInputNo+1].value)
+            .set('hsl.s', sliderInputs[startInputNo+2].value)
+            .hex();
+            
+            this.changeDivsBGandLuminance(colorElement, this.colors[colorNo].hex)
+            this.changeinputsbg(colorElement,this.colors[colorNo].hex)
+        }
+        if (0 <= inputNo && inputNo <= 2) {
+            set(0,0)
+        }
+        if (3 <= inputNo && inputNo <= 5) {
+            set(1,3)
+        }
+        if (6 <= inputNo && inputNo <= 8) {
+            set(2,6)
+        }
+        if (9 <= inputNo && inputNo <= 11) {
+            set(3,9)
+        }
+        if (12 <= inputNo && inputNo <= 14) {
+            set(4,12)
+        }
+    }
 
 
 }
@@ -95,41 +128,6 @@ function ColorGenerator() {
 
 const colorGenerator = new ColorGenerator();
 
-//functions
-
-function changeHue(elementandColorNumber,input){
-    let colorElement = colorGenerator.colorElements[elementandColorNumber]
-    let color = colorGenerator.colors[elementandColorNumber].hex;
-    colorGenerator.colors[elementandColorNumber].secondaryHex = 
-    chroma(color)
-    .set('hsl.h', input.value)
-    .hex();
-    colorGenerator.colors[elementandColorNumber].hue = input.value;
-    colorGenerator.changeDivsBGandLuminance(colorElement, colorGenerator.colors[elementandColorNumber].secondaryHex)
-    colorGenerator.changeinputsbg(colorElement,colorGenerator.colors[elementandColorNumber].secondaryHex)
-}
-function changeBrightness(elementandColorNumber,input){
-    let colorElement = colorGenerator.colorElements[elementandColorNumber]
-    let color = colorGenerator.colors[elementandColorNumber].hex;
-    if(colorGenerator.colors[elementandColorNumber].hue){
-        colorGenerator.colors[elementandColorNumber].hex=colorGenerator.colors[elementandColorNumber].secondaryHex;
-        colorGenerator.colors[elementandColorNumber].hue=null
-    }
-    colorGenerator.colors[elementandColorNumber].secondaryHex = chroma(color).set('hsl.l', input.value).hex();
-    colorGenerator.colors[elementandColorNumber].brightness = input.value;
-    colorGenerator.changeDivsBGandLuminance(colorElement, colorGenerator.colors[elementandColorNumber].secondaryHex)
-}
-function changeSaturation(elementandColorNumber,input){
-    let colorElement = colorGenerator.colorElements[elementandColorNumber]
-    let color = colorGenerator.colors[elementandColorNumber].hex;
-    if(colorGenerator.colors[elementandColorNumber].hue){
-        colorGenerator.colors[elementandColorNumber].hex=colorGenerator.colors[elementandColorNumber].secondaryHex;
-        colorGenerator.colors[elementandColorNumber].hue=null
-    }
-    colorGenerator.colors[elementandColorNumber].secondaryHex = chroma(color).set('hsl.s', input.value).hex();
-    colorGenerator.colors[elementandColorNumber].saturation = input.value;
-    colorGenerator.changeDivsBGandLuminance(colorElement, colorGenerator.colors[elementandColorNumber].secondaryHex)
-}
 
 //event listeners
 
@@ -160,74 +158,10 @@ colorGenerator.sliderCloseButton.forEach((element, index) => {
 
 console.log(colorGenerator.sliderInputs)
 
-//event for changing color tons 
+//event for changing colors HSL 
 colorGenerator.sliderInputs.forEach((element, index) => {
     element.addEventListener("input", () => {
-        if (0 <= index && index <= 2) {
-            switch (index) {
-                case 0:
-                    changeHue(0,element);
-                    break;
-                    case 1:
-                        changeBrightness(0,element)
-                        break;
-                        default:
-                            changeSaturation(0,element)
-                            break;
-                        }
-                    }
-                    if (3 <= index && index <= 5) {
-                        switch (index) {
-                            case 3:
-                                changeHue(1,element);
-                                break;
-                                case 4:
-                    changeBrightness(1,element)
-                    break;
-                    default:
-                        changeSaturation(1,element)
-                        break;
-                    }
-                }
-        if (6 <= index && index <= 8) {
-            switch (index) {
-                case 6:
-                    changeHue(2,element);
-                    break;
-                    case 7:
-                        changeBrightness(2,element)
-                        break;
-                        default:
-                            changeSaturation(2,element)
-                            break;
-                        }
-                    }
-                    if (9 <= index && index <= 11) {
-                        switch (index) {
-                            case 9:
-                    changeHue(3,element);
-                    break;
-                    case 10:
-                        changeBrightness(3,element)
-                        break;
-                        default:
-                            changeSaturation(3,element)
-                            break;
-            }
-        }
-        if (12 <= index && index <= 14) {
-            switch (index) {
-                case 12:
-                    changeHue(4,element);
-                    break;
-                    case 13:
-                        changeBrightness(4,element)
-                        break;
-                default:
-                    changeSaturation(4,element)
-                    break;
-                }
-            }
+        colorGenerator.setHSL(index)
     })
 })
 
