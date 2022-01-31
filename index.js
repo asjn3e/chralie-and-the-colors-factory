@@ -1,4 +1,4 @@
-const savedColors=JSON.parse(localStorage.getItem("colors"));
+let savedColors=JSON.parse(localStorage.getItem("colors"));
 
 if(!localStorage.getItem("colors")){
     savedColors=[]
@@ -52,13 +52,11 @@ function ColorGenerator() {
     //functions
     this.generateColor = () => {
         
-        for (let i = 0; i < 5; i++) {
-            if(this.colors[i].islocked==true){
-                continue
+        this.colors.forEach(element=>{
+            if(element.islocked==false){
+                element.hex=chroma.random().hex();
             }
-            this.colors[i].hex=chroma.random().hex();
-        }
-        console.log(this.colors)
+        })
         
         //add colors to divs
         this.colorElements.forEach((element, index) => {
@@ -263,11 +261,12 @@ colorGenerator.savePalette.addEventListener("click",()=>{
     const paletteName=colorGenerator.saveContainer.querySelector("input").value;
     const newSavingColor={
         name:paletteName,
-        colors:colorGenerator.colors,
+        colors:Array.from(colorGenerator.colors),
     }
-    console.log(colorGenerator.colors)
-    savedColors.push(newSavingColor);
-    localStorage.setItem("colors",JSON.stringify(savedColors));
+    let prevuisColors=JSON.parse(localStorage.getItem("colors")) || []
+    prevuisColors.push(newSavingColor)
+    localStorage.setItem("colors",JSON.stringify(prevuisColors))
+    savedColors=[...prevuisColors]
     colorGenerator.saveContainer.classList.remove("active")
 })
 
