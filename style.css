@@ -1,24 +1,31 @@
-*{
-    margin:0;
+* {
+    margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Muli";
 }
-i , path ,svg{
+
+i,
+path,
+svg {
     pointer-events: none;
 }
-button{
+
+button {
     cursor: pointer;
 }
-body{
+
+body {
     overflow: hidden;
 }
-.colors{
+
+.colors {
     display: flex;
     min-height: 80vh;
     width: 100%;
 }
-.color{
+
+.color {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -26,26 +33,29 @@ body{
     width: 100%;
     position: relative;
 }
-.color__title{
+
+.color__title {
     font-size: 2rem;
     cursor: pointer;
 }
-.color__controls{
+
+.color__controls {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.color__controls button{
+
+.color__controls button {
     font-size: 2rem;
     margin: 2rem;
-    background:none;
+    background: none;
     border: none;
     cursor: pointer;
 }
 
 
 /* slider */
-.slider{
+.slider {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -60,11 +70,12 @@ body{
     pointer-events: none;
 }
 
-.slider.active{
+.slider.active {
     transform: translateY(0px);
     opacity: 1;
     pointer-events: auto;
 }
+
 .close--btn {
     position: absolute;
     right: 0;
@@ -77,13 +88,15 @@ body{
     border-bottom-left-radius: 1rem;
     cursor: pointer;
     font-weight: 700;
-    
+
 }
-.slider__title{
+
+.slider__title {
     font-size: 1rem;
     color: rgb(104, 104, 104);
 }
-.slider  input{
+
+.slider input {
     margin: 1rem;
     -webkit-appearance: none;
     border-radius: 1rem;
@@ -92,43 +105,48 @@ body{
 
 
 
-.panles{
+.panles {
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: space-evenly;
     min-height: 20vh;
 }
-.panel{
+
+.panel {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-.panel button{
-    background-color:rgb(31 33 63);
+
+.panel button {
+    background-color: rgb(31 33 63);
     color: white;
     border: none;
-    font-size:1.2rem;
+    font-size: 1.2rem;
     margin: 1rem;
     padding: 1rem 2rem;
     border-radius: 1rem;
     cursor: pointer;
-    
+
 }
-.panel p{
+
+.panel p {
     font-size: 1.2rem;
     color: rgb(51 51 51);
 }
 
 
-.copy-container,.save-container,.library-container{
+.copy-container,
+.save-container,
+.library-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -137,7 +155,10 @@ body{
     transition: .5s transform ease-in;
     pointer-events: none;
 }
-.copy-popup,.save-popup,.library-popup{
+
+.copy-popup,
+.save-popup,
+.library-popup {
     background-color: #fff;
     display: flex;
     flex-direction: column;
@@ -148,62 +169,75 @@ body{
     border-radius: 1rem;
     transition: transform 1s ease-in;
     position: relative;
-    
+
 }
-.library-popup{
+
+.library-popup {
     min-width: 40%;
     min-height: 50vh;
     max-height: 50vh;
     justify-content: flex-start;
     align-items: center;
     overflow-y: scroll;
-    
+
 }
-.save-popup .close--btn,.library-container .close--btn{
+
+.save-popup .close--btn,
+.library-container .close--btn {
     border-radius: 0rem 10px 0rem 0rem;
 }
-.copy-popup h4{
+
+.copy-popup h4 {
     margin: 2rem;
     font-size: 1.5rem;
 }
-.save-popup h3,.copy-popup h3,.library-container h3{
-    margin-bottom:2rem;
+
+.save-popup h3,
+.copy-popup h3,
+.library-container h3 {
+    margin-bottom: 2rem;
     margin-top: 3rem;
     color: rgb(51 51 51);
     font-size: 2rem;
 }
-.save-popup input{
+
+.save-popup input {
     margin-bottom: 1.5rem;
     font-size: 1.3rem;
     color: rgb(51, 51, 51);
     height: 20%;
     width: 40%;
     border-radius: 5px;
-    border:1px solid rgb(151, 151, 151);
+    border: 1px solid rgb(151, 151, 151);
     outline: none;
 }
-.popup__button{
+
+.popup__button {
     background-color: rgb(31 33 63);
     border: none;
     padding: 0.8rem 2rem;
     color: white;
     border-radius: 10px;
     font-size: 1rem;
-    margin-bottom:1rem;
+    margin-bottom: 1rem;
 }
-.copy-container.active,.save-container.active,.library-container.active{
+
+.copy-container.active,
+.save-container.active,
+.library-container.active {
     transform: translateY(0);
     pointer-events: all;
 }
 
- .library-palette{
+.library-palette {
     display: flex;
     width: 85%;
     align-items: center;
     margin: 1.5rem;
     height: 5rem;
 }
-.library-name{
+
+.library-name {
     flex-grow: 1;
     font-size: 2rem;
     font-weight: 700;
@@ -211,12 +245,13 @@ body{
 
 }
 
-.library-color{
-    width: 5%;
+.library-color {
+    width: 7%;
     background-color: #000fff;
     height: 100%;
 }
-.library-select{
+
+.library-select {
     background-color: rgb(41 41 41);
     font-size: 1.2rem;
     color: white;
@@ -228,7 +263,81 @@ body{
     align-items: center;
     justify-content: center;
     cursor: pointer;
-} 
-.library-select:hover{
+}
+
+.library-select:hover {
     background-color: rgb(95, 95, 95);
+}
+
+@media screen and (max-width:768px) {
+    body {
+        overflow: hidden;
+    }
+
+    .colors {
+        flex-direction: column;
+    }
+
+    .color {
+        padding: 0.5rem;
+    }
+
+    .color__title {
+        font-size: 1.5rem;
+    }
+
+    .color__controls {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .color__controls button {
+        font-size: 1.5rem;
+        margin: 1rem;
+    }
+
+    /* slider */
+    .slider {
+        position: fixed;
+        z-index: 1;
+    }
+
+    .save-popup,
+    .copy-popup,
+    .library-popup {
+        width: 90vw;
+    }
+
+    .save-popup h3,
+    .copy-popup h3,
+    .library-container h3 {
+        font-size: 1.5rem;
+    }
+
+    .save-popup input {
+        padding: 1rem;
+        width: 50%;
+        border-radius: 5px;
+        border: 1px solid rgb(151, 151, 151);
+        outline: none;
+        font-size: 1rem;
+    }
+
+    .library-palette {
+        height: 3rem;
+    }
+
+    .library-name {
+        font-size: 1.4rem;
+    }
+
+    .library-color {
+        width: 7%;
+    }
+
+    .library-select {
+        font-size: 1rem;
+        padding: 1rem;
+    }
+
 }
