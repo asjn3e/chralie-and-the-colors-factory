@@ -168,7 +168,16 @@ function ColorGenerator() {
         this.libraryPopup.appendChild(div);
         document.querySelector(`.select-${index}`).addEventListener("click",()=>{
             this.colors=savedColors[index].colors
-
+            this.colors.forEach((element,j)=>{
+                if(element.islocked==true){
+                    this.locks[j].firstChild.classList.remove("fa-lock-open")
+                    this.locks[j].firstChild.classList.add("fa-lock")
+                }
+                if(element.islocked==false){
+                    this.locks[j].firstChild.classList.remove("fa-lock")
+                    this.locks[j].firstChild.classList.add("fa-lock-open")
+                }
+            })
             //add colors to divs
             this.colorElements.forEach((element, index) => {
                 //changing divs bg and luminance 
